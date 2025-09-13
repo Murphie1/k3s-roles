@@ -1,0 +1,73 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: default-full-role
+  namespace: default
+rules:
+  # Core resources (Pods, Services, Config, Secrets, etc.)
+  - apiGroups: [""]
+    resources:
+      - pods
+      - pods/log
+      - pods/status
+      - services
+      - configmaps
+      - secrets
+      - persistentvolumeclaims
+      - endpoints
+      - events
+      - namespaces
+      - replicationcontrollers
+      - serviceaccounts
+      - nodes
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
+
+  # Batch resources (Jobs, CronJobs)
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+      - cronjobs
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
+
+  # Apps resources (Deployments, ReplicaSets, StatefulSets, DaemonSets)
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+      - replicasets
+      - statefulsets
+      - daemonsets
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
+
+  # Networking resources (Ingress, NetworkPolicy, Services)
+  - apiGroups: ["networking.k8s.io"]
+    resources:
+      - ingresses
+      - networkpolicies
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
+
+  # Policy resources (PodDisruptionBudgets, PodSecurityPolicies)
+  - apiGroups: ["policy"]
+    resources:
+      - poddisruptionbudgets
+      - podsecuritypolicies
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
+
+  # Autoscaling resources (HPAs)
+  - apiGroups: ["autoscaling"]
+    resources:
+      - horizontalpodautoscalers
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
+
+  # RBAC resources (Roles, RoleBindings) – namespace-scoped
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources:
+      - roles
+      - rolebindings
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
+
+  # Resource quotas & limits
+  - apiGroups: [""]
+    resources:
+      - resourcequotas
+      - limitranges
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
