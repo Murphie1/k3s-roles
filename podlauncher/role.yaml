@@ -28,3 +28,9 @@ rules:
       - statefulsets
       - daemonsets
     verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
+
+  # Networking resources (Ingresses)
+  - apiGroups: ["networking.k8s.io"]
+    resources:
+      - ingresses
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
