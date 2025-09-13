@@ -1,0 +1,30 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: podlauncher-role
+  namespace: podlauncher
+rules:
+  # Core resources
+  - apiGroups: [""]
+    resources:
+      - pods
+      - pods/log
+      - pods/status
+      - services
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
+
+  # Batch resources (Jobs + CronJobs)
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+      - cronjobs
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
+
+  # Apps resources (Deployments, ReplicaSets, StatefulSets, DaemonSets)
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+      - replicasets
+      - statefulsets
+      - daemonsets
+    verbs: ["get", "list", "create", "delete", "watch", "update", "patch"]
