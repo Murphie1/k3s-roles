@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: devtool-quota
+  namespace: devtool
+spec:
+  hard:
+    pods: "20"                          # Max number of pods
+    requests.cpu: "8"                   # Total CPU requests across namespace
+    requests.memory: "16Gi"              # Total Memory requests
+    limits.cpu: "16"                     # Max combined CPU limits
+    limits.memory: "32Gi"               # Max combined Memory limits
+    persistentvolumeclaims: "10"        # Max PVCs
+    requests.storage: "200Gi"           # Total storage requested
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: devtool-limits
+  namespace: devtool
+spec:
+  limits:
+  - type: Container
+    default:
+      cpu: "500m"       # Default CPU limit per container
+      memory: "512Mi"   # Default memory limit per container
+    defaultRequest:
+      cpu: "250m"       # Default CPU request per container
+      memory: "256Mi"   # Default memory request per container
+    max:
+      cpu: "8"          # Max per-container CPU limit
+      memory: "32Gi"     # Max per-container memory limit
+    min:
+      cpu: "100m"       # Min CPU request
+      memory: "128Mi"   # Min memory request
